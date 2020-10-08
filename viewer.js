@@ -20,20 +20,11 @@ function clearSelectRange() {
 }
 
 function disabledUI(disabled){
-    if(disabled){
-        document.getElementById("colorFormat").disabled = "true";
-        document.getElementById("binNumberId").disabled = "true";
-        document.getElementById("colorPix").disabled = "true";
-        document.getElementById("analysisImg").disabled = "true";
-        document.getElementById("selectRect").disabled = "true";
-    }
-    else{
-        document.getElementById("colorFormat").disabled = "";
-        document.getElementById("binNumberId").disabled = "";
-        document.getElementById("colorPix").disabled = "";
-        document.getElementById("analysisImg").disabled = "";
-        document.getElementById("selectRect").disabled = "";
-    }
+    document.getElementById("colorFormat").disabled = disabled;
+    document.getElementById("binNumberId").disabled = disabled;
+    document.getElementById("colorPix").disabled = disabled;
+    document.getElementById("analysisImg").disabled = disabled;
+    document.getElementById("selectRect").disabled = disabled;
 }
 
 function allClear(){
