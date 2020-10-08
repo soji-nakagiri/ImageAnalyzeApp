@@ -28,6 +28,23 @@ function readImg() {
     let img = new Image();
 
     if (fileSelect.files.length == 0) {
+        document.getElementById("colorFormat").disabled = "true";
+        document.getElementById("binNumberId").disabled = "true";
+        document.getElementById("colorPix").disabled = "true";
+        document.getElementById("analysisImg").disabled = "true";
+        document.getElementById("selectRect").disabled = "true";
+        clearSelectRect();
+        clearPixelColor();
+        clearSelectRange();
+        ctx.clearRect(0, 0, cvs.clientWidth, cvs.clientHeight);
+        let arrImgName = ["colorComponent1Img", "colorComponent2Img", "colorComponent3Img",
+                        "histgram1Img", "histgram2Img", "histgram3Img"];
+        for(i=0; i<arrImgName.length; i++){
+            let cvsSubImg = document.getElementById(arrImgName[i]);
+            let ctxSubImg = cvsSubImg.getContext("2d");
+            ctxSubImg.clearRect(0, 0, cvsSubImg.clientWidth, cvsSubImg.clientHeight);
+        }
+
         return;
     }
     reader.onloadend = () => {
