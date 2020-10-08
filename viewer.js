@@ -19,6 +19,40 @@ function clearSelectRange() {
     clearSelectRect();
 }
 
+function disabledUI(disabled){
+    if(disabled){
+        document.getElementById("colorFormat").disabled = "true";
+        document.getElementById("binNumberId").disabled = "true";
+        document.getElementById("colorPix").disabled = "true";
+        document.getElementById("analysisImg").disabled = "true";
+        document.getElementById("selectRect").disabled = "true";
+    }
+    else{
+        document.getElementById("colorFormat").disabled = "";
+        document.getElementById("binNumberId").disabled = "";
+        document.getElementById("colorPix").disabled = "";
+        document.getElementById("analysisImg").disabled = "";
+        document.getElementById("selectRect").disabled = "";
+    }
+}
+
+function allClear(){
+    disabledUI(true);
+
+    clearSelectRect();
+    clearPixelColor();
+    clearSelectRange();
+
+    let arrImgName = ["baseImg",
+                    "colorComponent1Img", "colorComponent2Img", "colorComponent3Img",
+                    "histgram1Img", "histgram2Img", "histgram3Img"];
+    for(i=0; i<arrImgName.length; i++){
+        let cvs = document.getElementById(arrImgName[i]);
+        let ctx = cvs.getContext("2d");
+        ctx.clearRect(0, 0, cvs.clientWidth, cvs.clientHeight);
+    }
+}
+
 function readImg() {
 
     const reader = new FileReader();
@@ -28,23 +62,7 @@ function readImg() {
     let img = new Image();
 
     if (fileSelect.files.length == 0) {
-        document.getElementById("colorFormat").disabled = "true";
-        document.getElementById("binNumberId").disabled = "true";
-        document.getElementById("colorPix").disabled = "true";
-        document.getElementById("analysisImg").disabled = "true";
-        document.getElementById("selectRect").disabled = "true";
-        clearSelectRect();
-        clearPixelColor();
-        clearSelectRange();
-        ctx.clearRect(0, 0, cvs.clientWidth, cvs.clientHeight);
-        let arrImgName = ["colorComponent1Img", "colorComponent2Img", "colorComponent3Img",
-                        "histgram1Img", "histgram2Img", "histgram3Img"];
-        for(i=0; i<arrImgName.length; i++){
-            let cvsSubImg = document.getElementById(arrImgName[i]);
-            let ctxSubImg = cvsSubImg.getContext("2d");
-            ctxSubImg.clearRect(0, 0, cvsSubImg.clientWidth, cvsSubImg.clientHeight);
-        }
-
+        allClear();
         return;
     }
     reader.onloadend = () => {
@@ -57,11 +75,7 @@ function readImg() {
     }
     reader.readAsDataURL(fileSelect.files[0]);
 
-    document.getElementById("colorFormat").disabled = "";
-    document.getElementById("binNumberId").disabled = "";
-    document.getElementById("colorPix").disabled = "";
-    document.getElementById("analysisImg").disabled = "";
-    document.getElementById("selectRect").disabled = "";
+    disabledUI(false);
 }
 
 function clickBaseImg(event) {
