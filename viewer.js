@@ -29,6 +29,7 @@ function disabledUI(disabled){
 
 function allClear(){
     disabledUI(true);
+    document.getElementById("saveImg").disabled = true;
 
     clearSelectRect();
     clearPixelColor();
@@ -44,25 +45,33 @@ function allClear(){
     }
 }
 
-function readImg() {
+function onMouseUpAlpha(){
+    document.getElementById('imgAlpha').innerHTML = alphaRange.value/100.0;
+    const cvs = document.getElementById("baseImg");
+    let ctx = cvs.getContext("2d");
 
+    ctx.clearRect(0, 0, cvs.clientWidth, cvs.clientHeight);
+    ctx.globalAlpha = alphaRange.value/100.0;
+    ctx.drawImage(baseImg, 0, 0, cvs.clientWidth, cvs.clientHeight);
+}
+
+function readImg() {
     const reader = new FileReader();
     const fileSelect = document.getElementById("fileSelect");
     const cvs = document.getElementById("baseImg");
     let ctx = cvs.getContext("2d");
-    let img = new Image();
+    baseImg = new Image();
 
     if (fileSelect.files.length == 0) {
         allClear();
         return;
     }
     reader.onloadend = () => {
-        img.onload = () => {
-            ctx.drawImage(img, 0, 0, cvs.clientWidth, cvs.clientHeight);
+        baseImg.onload = () => {
+            ctx.drawImage(baseImg, 0, 0, cvs.clientWidth, cvs.clientHeight);
             imageData = ctx.getImageData(0, 0, IMAGE_WIDHT, IMAGE_HEIGHT);
-
         }
-        img.src = reader.result;
+        baseImg.src = reader.result;
     }
     reader.readAsDataURL(fileSelect.files[0]);
 

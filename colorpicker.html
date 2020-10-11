@@ -43,6 +43,8 @@
     <span id="imageLocation"></span><br>
 
     <input type="file" id="fileSelect" accept="image/jpeg,image/png,image/gif" onchange="readImg()"><BR>
+    透過度<input type="range" id="alphaRange" min="0" max="100" value="100" onmouseup="onMouseUpAlpha();" style="padding:0;"> 
+    <span id="imgAlpha">1.0</span><BR>
     <input type="button" disabled id="analysisImg" value="解析" onclick="analysisImg()"><BR>
 
     <!-- 元画表示 -->
